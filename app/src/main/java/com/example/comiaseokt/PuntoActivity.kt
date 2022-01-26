@@ -2,11 +2,16 @@ package com.example.comiaseokt
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.comiaseokt.databinding.ActivityLoginBinding
+import com.example.comiaseokt.databinding.ActivityPuntoBinding
 
 class PuntoActivity : AppCompatActivity() {
+    private  lateinit var binding: ActivityPuntoBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_punto)
+    binding= ActivityPuntoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
 
