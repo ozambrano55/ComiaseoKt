@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:orientation="vertical"
     app:layoutDescription="@xml/activity_login_scene"
     tools:context=".LoginActivity">
 
@@ -45,20 +45,28 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="155dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:onClick="Login"
-        android:text="INGRESAR" />
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnSalir"
-        android:layout_width="146dp"
-        android:layout_height="wrap_content"
-        android:onClick="salir"
-        android:text="Salir" />
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:onClick="Login"
+            android:text="INGRESAR"
+            tools:ignore="OnClick" />
+
+        <Button
+            android:id="@+id/btnSalir"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:onClick="salir"
+            android:text="Salir"
+            tools:ignore="OnClick" />
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

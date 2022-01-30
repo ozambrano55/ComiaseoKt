@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Clientes">
+        <menu>
+            <item android:id="@+id/nav_item_cRegistro"
+                android:icon="@drawable/abc_vector_test"
+                android:title="Registro"/>
+            <item android:id="@+id/nav_item_cCartera"
+                android:icon="@drawable/abc_vector_test"
+                android:title="Cartera"/>
+        </menu>
+    </item>
+    <item android:title="Pedidos">
+        <menu>
+            <item android:id="@+id/nav_item_pNuevo"
+                android:icon="@drawable/abc_vector_test"
+                android:title="Nuevo"/>
+            <item android:id="@+id/nav_item_pConsulta"
+                android:icon="@drawable/abc_vector_test"
+                android:title="Consulta"/>
+        </menu>
+    </item>
+
+    <item android:title="Productos">
+        <menu>
+            <item android:id="@+id/nav_item_cConsulta"
+                android:icon="@drawable/abc_vector_test"
+                android:title="Consulta"/>
+            <item android:id="@+id/nav_item_cCatalogo"
+                android:icon="@drawable/abc_vector_test"
+                android:title="Catalogo"/>
+        </menu>
+    </item>
+
+    <item android:title="Sistema">
+        <menu>
+            <item android:id="@+id/nav_item_salir"
+                android:icon="@drawable/salir"
+                android:title="Salir"/>
+
+        </menu>
+    </item>
+</menu>

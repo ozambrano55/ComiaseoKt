@@ -4,6 +4,7 @@ package com.example.comiaseokt
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -11,7 +12,6 @@ import com.example.comiaseokt.UserApplication.Companion.prefs
 import com.example.comiaseokt.databinding.ActivityLoginBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -42,7 +42,7 @@ class LoginActivity   :  AppCompatActivity (){
 
         progressBar.setVisibility(View.GONE)
 
-initUI()
+            initUI()
 
     }
 
@@ -50,7 +50,7 @@ initUI()
         binding.btnLogin.setOnClickListener {Login() }
     }
 
-    private  fun getRetrofit():Retrofit{
+    private  fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("http://190.12.55.2:9092/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -73,15 +73,32 @@ private fun searchByName(usr:String, pwd:String){
     //}
     //}
 CoroutineScope(Dispatchers.IO).launch {
-       val call:Response<LoginResponse> = getRetrofit().create(ApiServicioLogin::class.java).getLogin("$usr","$pwd")
-       val ppupies:LoginResponse?=call.body()
+       val call: Response<LoginResponse> = getRetrofit().create(ApiServicioLogin::class.java).getLogin("$usr","$pwd")
+       val res:LoginResponse?=call.body()
         runOnUiThread {
            if(call.isSuccessful){
                 //carga variables
-                val c_funcionario:String=ppupies?.cfuncionario.toString()
-                prefs.saveC_Funcionario(c_funcionario)
-               Toast.makeText(this@LoginActivity, prefs.getCFuncionario(), Toast.LENGTH_SHORT).show()
-               goToMainActivity()
+                //val c_funcionario:String=ppupies?.cfuncionario.toString()
+               prefs.saveC_Funcionario(res?.cfuncionario.toString())
+               prefs.saveFuncionario(res?.funcionario.toString())
+               prefs.saveC_Punto_Venta(res?.cpuntoventa.toString())
+               prefs.savePunto(res?.punto.toString())
+               prefs.saveC_BODEGA(res?.cbodega.toString())
+               prefs.saveCod_Pedidos(res?.codpedidos.toString())
+
+               val puntoventa:String=res?.cpuntoventa.toString()
+               Log.d("C_Funcionairo",prefs.getCFuncionario())
+               Log.d("Funcionairo", prefs.getFuncionario())
+               Log.d("C_Punto_Venta", prefs.getCPuntoVenta())
+               Log.d("Punto",prefs.getPunto())
+               Log.d("C_Bodega",prefs.getCBodega())
+               Log.d("Cod_Pedidos", prefs.getCodPedidos())
+
+                if(puntoventa.isEmpty()){
+                    goToPuntoActivity()
+                }else {
+                    goToMainActivity()
+                }
             }else{
                 //muestra error
                showError()
@@ -104,6 +121,9 @@ CoroutineScope(Dispatchers.IO).launch {
 fun goToMainActivity(){
     startActivity(Intent(this,MainActivity::class.java))
 }
+    fun goToPuntoActivity(){
+        startActivity(Intent(this,PuntoActivity::class.java))
+    }
     fun salir() {
         finish()
     }

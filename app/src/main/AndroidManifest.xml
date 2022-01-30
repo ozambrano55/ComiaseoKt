@@ -9,19 +9,20 @@
     <uses-feature android:name="android.hardware.Camera.autofocus" />
 
     <application
+        android:name=".UserApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
-        android:name=".UserApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ComiaseoKt">
+        android:theme="@style/Theme.ComiaseoKt"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".PedidoActivity"
+            android:exported="false" />
         <activity
             android:name=".PuntoActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true"
@@ -34,7 +35,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
