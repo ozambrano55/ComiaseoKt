@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
     <item android:title="Clientes">
         <menu>
-            <item android:id="@+id/nav_item_cRegistro"
-                android:icon="@drawable/abc_vector_test"
-                android:title="Registro"/>
-            <item android:id="@+id/nav_item_cCartera"
-                android:icon="@drawable/abc_vector_test"
-                android:title="Cartera"/>
+            <item
+                android:id="@+id/nav_item_cRegistro"
+                android:icon="@drawable/ic_edi50"
+                android:title="Registro" />
+            <item
+                android:id="@+id/nav_item_cCartera"
+                android:icon="@drawable/car"
+                android:title="Cartera" />
         </menu>
     </item>
     <item android:title="Pedidos">
         <menu>
-            <item android:id="@+id/nav_item_pNuevo"
-                android:icon="@drawable/abc_vector_test"
-                android:title="Nuevo"/>
-            <item android:id="@+id/nav_item_pConsulta"
-                android:icon="@drawable/abc_vector_test"
-                android:title="Consulta"/>
+            <item
+                android:id="@+id/nav_item_pNuevo"
+                android:icon="@drawable/ic_cli"
+                android:title="Nuevo" />
+            <item
+                android:id="@+id/nav_item_pConsulta"
+                android:icon="@drawable/ped"
+                android:title="Consulta" />
         </menu>
     </item>
 
     <item android:title="Productos">
         <menu>
-            <item android:id="@+id/nav_item_cConsulta"
-                android:icon="@drawable/abc_vector_test"
-                android:title="Consulta"/>
-            <item android:id="@+id/nav_item_cCatalogo"
-                android:icon="@drawable/abc_vector_test"
-                android:title="Catalogo"/>
+            <item
+                android:id="@+id/nav_item_cConsulta"
+                android:icon="@drawable/prod"
+                android:title="Consulta" />
+            <item
+                android:id="@+id/nav_item_cCatalogo"
+                android:icon="@drawable/pdf"
+                android:title="Catalogo" />
         </menu>
     </item>
 
     <item android:title="Sistema">
         <menu>
-            <item android:id="@+id/nav_item_salir"
+            <item
+                android:id="@+id/nav_item_salir"
+                android:checked="false"
+                android:enabled="true"
                 android:icon="@drawable/salir"
-                android:title="Salir"/>
+                android:menuCategory="system"
+                android:title="Salir" />
 
         </menu>
     </item>

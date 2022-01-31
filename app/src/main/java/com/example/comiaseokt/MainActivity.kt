@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val navigationView:NavigationView =binding.navView //findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener (this)
-
+        navigationView.setItemIconTintList(null)
         //codigo nuevo
         val hView = navigationView.getHeaderView(0)
         val funcionario: TextView = hView.findViewById<TextView>(R.id.nav_header_textView_Usr)
