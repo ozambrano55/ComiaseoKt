@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -38,18 +39,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle= ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)//Muestra Flecha
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)//Muestra Flecha
         supportActionBar?.setHomeButtonEnabled(true)
 
         val navigationView:NavigationView =binding.navView //findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener (this)
-        navigationView.setItemIconTintList(null)
+        navigationView.setItemIconTintList(null) //Muestra imagenes de icono
         //codigo nuevo
         val hView = navigationView.getHeaderView(0)
         val funcionario: TextView = hView.findViewById<TextView>(R.id.nav_header_textView_Usr)
         funcionario.setText(prefs.getFuncionario())
     }
 
+  /*  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        getMenuInflater().inflate(R.menu.activity_main_drawer,menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }*/
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.nav_item_cConsulta-> {
