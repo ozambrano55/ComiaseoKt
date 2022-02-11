@@ -1,5 +1,4 @@
 package com.example.comiaseokt
-ñ
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SearchView
@@ -19,49 +18,73 @@ import retrofit2.converter.gson.GsonConverterFactory
 class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private  lateinit var binding: ActivityPedidoBinding
     private  lateinit var adapter: ProductoAdapter
-    private val productoImages= mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityPedidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.svProducto.setOnQueryTextListener(this)
-        initRecyclerView()
-        initUI()
+      //  initRecyclerView()
+      //  searchByProducto("3800")
+        val recyclerView=binding.rvProducto
+        val serviceGenerator=ServiceGenerator.builService(ApiServicioProducto::class.java)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val calls=serviceGenerator.getProducto("3800")
+            val call: Response<ProductoResponse> = getRetrofit().create(ApiServicioProducto::class.java).getProducto("3800")
+            val res: ProductoResponse?=call.body()
+            runOnUiThread {
+                if(call.isSuccessful){
+                    //   val images:ArrayList<String> = (res?.img ?: emptyList()) as ArrayList<String>
+                    //productoImages.clear()
+                    //     productoImages.addAll(images)
+                    //adapter.notifyDataSetChanged()
+                    //show RecyclerView
+                    recyclerView.apply {
+                        layoutManager=LinearLayoutManager(this@PedidoActivity)
+                        adapter=ProductoAdapter(res?!!)                   }
+
+
+                }else{
+                    //muestra error
+                    showError()
+                }
+            }
+
+        }
+
     }
 
     private fun initRecyclerView() {
-        adapter= ProductoAdapter(productoImages)
+      //  adapter= ProductoAdapter(productoImages)
        binding.rvProducto.layoutManager=LinearLayoutManager(this)
         binding.rvProducto.adapter=adapter
 
     }
 
-    private fun initUI() {
-        binding.btnAll.setOnClickListener {Pedido() }
-    }
 
-    private fun Pedido() {
-        TODO("Not yet implemented")
-    }
+
+
     private  fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("http://190.12.55.2:9093/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    private fun searchByProducto(bo: String){
-
+   /* private fun searchByProducto(bo: String){
+        val recyclerView=findViewById<RecyclerView>(R.id.rvProducto)
         CoroutineScope(Dispatchers.IO).launch {
             val call: Response<ProductoResponse> = getRetrofit().create(ApiServicioProducto::class.java).getProducto(bo)
             val res: ProductoResponse?=call.body()
             runOnUiThread {
                 if(call.isSuccessful){
-                    val images= res?.img
-                    productoImages.clear()
-                    productoImages.add(1,"hola")
-                    adapter.notifyDataSetChanged()
+                 //   val images:ArrayList<String> = (res?.img ?: emptyList()) as ArrayList<String>
+                    //productoImages.clear()
+               //     productoImages.addAll(images)
+                    //adapter.notifyDataSetChanged()
                     //show RecyclerView
-
+                    recyclerView.apply {
+                        layoutManager=LinearLayoutManager(this@PedidoActivity)
+                        adapter=ProductoAdapter(res)                   }
 
 
                 }else{
@@ -72,7 +95,7 @@ class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         }
     }
-
+*/
     private fun showError(){
         Toast.makeText(this,"Ha ocurrido un error", Toast.LENGTH_LONG).show()
     }
@@ -80,7 +103,7 @@ class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query.isNullOrEmpty()){
             if (query != null) {
-                searchByProducto(query)
+                //searchByProducto(query)
             }
         }
         return true
