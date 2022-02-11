@@ -9,7 +9,9 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.comiaseokt.UserApplication.Companion.prefs
+import com.example.comiaseokt.api.ApiServicioLogin
 import com.example.comiaseokt.databinding.ActivityLoginBinding
+import com.example.comiaseokt.response.LoginResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -74,7 +76,7 @@ private fun searchByName(usr:String, pwd:String){
     //}
 CoroutineScope(Dispatchers.IO).launch {
        val call: Response<LoginResponse> = getRetrofit().create(ApiServicioLogin::class.java).getLogin("$usr","$pwd")
-       val res:LoginResponse?=call.body()
+       val res: LoginResponse?=call.body()
         runOnUiThread {
            if(call.isSuccessful){
                 //carga variables
@@ -113,16 +115,16 @@ CoroutineScope(Dispatchers.IO).launch {
     fun Login() {
 
         UserNameStr = binding.ETUsername.text.toString()
-        PasswordStr=Hash.sha1(binding.ETPassword.text.toString())
+        PasswordStr= Hash.sha1(binding.ETPassword.text.toString())
     //PasswordStr=dc.Hash.sha1(binding.ETPassword.text.toString())
         //PasswordStr = MessageDigest.getInstance("SHA-1",binding.ETPassword.text.toString()).toString()
         searchByName(UserNameStr!!,PasswordStr!!)
     }
 fun goToMainActivity(){
-    startActivity(Intent(this,MainActivity::class.java))
+    startActivity(Intent(this, MainActivity::class.java))
 }
     fun goToPuntoActivity(){
-        startActivity(Intent(this,PuntoActivity::class.java))
+        startActivity(Intent(this, PuntoActivity::class.java))
     }
     fun salir() {
         finish()

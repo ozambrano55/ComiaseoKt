@@ -4,9 +4,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,8 +13,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.comiaseokt.UserApplication.Companion.prefs
 import com.example.comiaseokt.databinding.ActivityMainBinding
-import com.example.comiaseokt.databinding.AppBarMainBinding
-import com.example.comiaseokt.databinding.NavHeaderMainBinding
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -36,7 +32,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         drawer=binding.drawerLayout //findViewById(R.id.drawer_layout)
-        toggle= ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close)
+        toggle= ActionBarDrawerToggle(this,drawer,toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawer.addDrawerListener(toggle)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)//Muestra Flecha
@@ -58,10 +57,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }*/
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.nav_item_cConsulta-> {
+            R.id.nav_item_cConsulta -> {
                 Toast.makeText(this,"Item1",Toast.LENGTH_LONG).show()
             }
-            R.id.nav_item_pNuevo->{
+            R.id.nav_item_pNuevo ->{
                 goToPedidoActivity()
             }
         }
@@ -69,7 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
     fun goToPedidoActivity(){
-        startActivity(Intent(this,PedidoActivity::class.java))
+        startActivity(Intent(this, PedidoActivity::class.java))
     }
     override fun onPostCreate(savedInstanceState: Bundle?){
         super.onPostCreate(savedInstanceState)

@@ -1,11 +1,14 @@
 package com.example.comiaseokt
-
+ñ
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.SearchView
 import android.widget.Toast
-import com.example.comiaseokt.databinding.ActivityLoginBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.comiaseokt.adaptadores.ProductoAdapter
+import com.example.comiaseokt.api.ApiServicioProducto
 import com.example.comiaseokt.databinding.ActivityPedidoBinding
+import com.example.comiaseokt.response.ProductoResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,14 +16,24 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class PedidoActivity : AppCompatActivity() {
+class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private  lateinit var binding: ActivityPedidoBinding
-
+    private  lateinit var adapter: ProductoAdapter
+    private val productoImages= mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityPedidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.svProducto.setOnQueryTextListener(this)
+        initRecyclerView()
         initUI()
+    }
+
+    private fun initRecyclerView() {
+        adapter= ProductoAdapter(productoImages)
+       binding.rvProducto.layoutManager=LinearLayoutManager(this)
+        binding.rvProducto.adapter=adapter
+
     }
 
     private fun initUI() {
@@ -32,39 +45,25 @@ class PedidoActivity : AppCompatActivity() {
     }
     private  fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://190.12.55.2:9092/")
+            .baseUrl("http://190.12.55.2:9093/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    private fun searchByProducto(bo:Int){
+    private fun searchByProducto(bo: String){
 
         CoroutineScope(Dispatchers.IO).launch {
             val call: Response<ProductoResponse> = getRetrofit().create(ApiServicioProducto::class.java).getProducto(bo)
-            val res:ProductoResponse?=call.body()
+            val res: ProductoResponse?=call.body()
             runOnUiThread {
                 if(call.isSuccessful){
-                    //carga variables
-                    //val c_funcionario:String=ppupies?.cfuncionario.toString()
-                    UserApplication.prefs.saveC_Funcionario(res?.cfuncionario.toString())
-                    UserApplication.prefs.saveFuncionario(res?.funcionario.toString())
-                    UserApplication.prefs.saveC_Punto_Venta(res?.cpuntoventa.toString())
-                    UserApplication.prefs.savePunto(res?.punto.toString())
-                    UserApplication.prefs.saveC_BODEGA(res?.cbodega.toString())
-                    UserApplication.prefs.saveCod_Pedidos(res?.codpedidos.toString())
+                    val images= res?.img
+                    productoImages.clear()
+                    productoImages.add(1,"hola")
+                    adapter.notifyDataSetChanged()
+                    //show RecyclerView
 
-                    val puntoventa:String=res?.cpuntoventa.toString()
-                    Log.d("C_Funcionairo", UserApplication.prefs.getCFuncionario())
-                    Log.d("Funcionairo", UserApplication.prefs.getFuncionario())
-                    Log.d("C_Punto_Venta", UserApplication.prefs.getCPuntoVenta())
-                    Log.d("Punto", UserApplication.prefs.getPunto())
-                    Log.d("C_Bodega", UserApplication.prefs.getCBodega())
-                    Log.d("Cod_Pedidos", UserApplication.prefs.getCodPedidos())
 
-                    if(puntoventa.isEmpty()){
-                        //goToPuntoActivity()
-                    }else {
-                        //goToMainActivity()
-                    }
+
                 }else{
                     //muestra error
                     showError()
@@ -75,6 +74,21 @@ class PedidoActivity : AppCompatActivity() {
     }
 
     private fun showError(){
-        Toast.makeText(this,"Revisar usuario o contraseña", Toast.LENGTH_LONG).show()
+        Toast.makeText(this,"Ha ocurrido un error", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query.isNullOrEmpty()){
+            if (query != null) {
+                searchByProducto(query)
+            }
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return  true
     }
 }
+
+

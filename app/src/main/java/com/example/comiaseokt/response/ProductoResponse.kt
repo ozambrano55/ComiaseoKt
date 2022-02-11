@@ -1,4 +1,4 @@
-package com.example.comiaseokt
+package com.example.comiaseokt.response
 
 import com.google.gson.annotations.SerializedName
 
