@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.comiaseokt.R
 import com.example.comiaseokt.holder.ProductoViewHolder
 import com.example.comiaseokt.response.ProductoResponse
+import com.example.comiaseokt.response.UserDataCollectionItem
 
-class ProductoAdapter(private val images:List <ProductoResponse>): RecyclerView.Adapter<ProductoViewHolder>() {
+class ProductoAdapter(private val images: List<ProductoResponse>): RecyclerView.Adapter<ProductoViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
         val layoutInflater=LayoutInflater.from(parent.context)
         return ProductoViewHolder(layoutInflater.inflate(R.layout.item_producto,parent,false))
