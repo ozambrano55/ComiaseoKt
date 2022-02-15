@@ -59,21 +59,6 @@ class LoginActivity   :  AppCompatActivity (){
             .build()
     }
 private fun searchByName(usr:String, pwd:String){
-    //val call=getRetrofit().create(ApiServicioLogin::class.java)
-    //launching a new coroutine
-  //  CoroutineScope(Dispatchers.IO).launch {
-    //    val result=call.getLogin("$usr","$pwd")
-      //  runOnUiThread{
-        //    if (result.isSuccessful){
-               // val c_funcionario:String= result.body()?.cfuncionario.toString()
-          //      prefs.saveC_Funcionario(result.body()?.cfuncionario.toString())
-            //    val Usuario= prefs.getCFuncionario()
-            //    Toast.makeText(this@LoginActivity, Usuario, Toast.LENGTH_SHORT).show()
-           // }else{
-            //    showError()
-            //}
-    //}
-    //}
 CoroutineScope(Dispatchers.IO).launch {
        val call: Response<LoginResponse> = getRetrofit().create(ApiServicioLogin::class.java).getLogin("$usr","$pwd")
        val res: LoginResponse?=call.body()

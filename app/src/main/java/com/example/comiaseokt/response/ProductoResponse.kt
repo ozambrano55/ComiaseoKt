@@ -1,7 +1,6 @@
 package com.example.comiaseokt.response
 
 import com.google.gson.annotations.SerializedName
-
 data class ProductoResponse (
     @SerializedName("Ref")var ref:String,
     @SerializedName("Nombre")var nombre:String,
