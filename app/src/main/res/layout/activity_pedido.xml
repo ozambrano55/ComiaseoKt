@@ -86,13 +86,15 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VALIDAR" />
+            android:text="VALIDAR"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="REVISAR" />
+            android:text="REVISAR"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 

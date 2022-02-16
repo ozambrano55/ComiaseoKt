@@ -56,17 +56,29 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
-    implementation "com.squareup.picasso:picasso:2.71828"
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6'
 
-    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.4'
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.4'
 
     implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
-    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'com.android.car.ui:car-ui-lib:+'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    //Gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //Corrutinas
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+    //Coil
+    implementation("io.coil-kt:coil:1.4.0")
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

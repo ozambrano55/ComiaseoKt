@@ -1,34 +1,26 @@
 package com.example.comiaseokt
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.comiaseokt.adaptadores.PostAdapter
-import com.example.comiaseokt.adaptadores.ProductoAdapter
-import com.example.comiaseokt.api.ApiService
-import com.example.comiaseokt.api.ApiServicioProducto
-import com.example.comiaseokt.api.UserService
 import com.example.comiaseokt.databinding.ActivityPedidoBinding
-import com.example.comiaseokt.response.DogResponse
-
-import com.example.comiaseokt.response.ProductoResponse
-import com.example.comiaseokt.response.UserDataCollectionItem
-import kotlinx.coroutines.CoroutineScope
+import com.example.comiaseokt.retrofit.WeatherEntity
+import com.example.comiaseokt.retrofit.WeatherService
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.*
+import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-
-class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class PedidoActivity : AppCompatActivity(), OnClickListener {
 
     private  lateinit var binding: ActivityPedidoBinding
-    private  lateinit var adapter: ProductoAdapter
-    private val ProductoImages= mutableListOf<ProductoResponse>()
-    private val ProdImages= mutableListOf<UserDataCollectionItem>()
+    private  lateinit var listAdapter:SportListAdapter
+    private lateinit var adapter: SportAdapter
+
 
 
 
@@ -38,123 +30,67 @@ class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
         binding= ActivityPedidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.svProducto.setOnQueryTextListener(this)
-        initRecyclerView()
-
-      /*  val recyclerView =binding.rvProducto
-        val serviceGenerator=ServiceGenerator.builService(ApiService::class.java)
-        val call =serviceGenerator.getPost()
-*/
 
 
-//https://www.youtube.com/watch?v=4o6QwVe_2Yg&t=829s
+
 
 
         binding.btnAll.setOnClickListener {
-            cargarTodo("3801")
-            //callServiceGetProductos()
-    /*       call.enqueue(object :Callback<MutableList<PostModel>>{
-                override fun onResponse(call: Call<MutableList<PostModel>>,response: Response<MutableList<PostModel>>) {
-                    if(response.isSuccessful){
-                        Log.e("Resultado",response.body().toString())
-                        recyclerView.apply {
-                            layoutManager=LinearLayoutManager(this@PedidoActivity)
-                            adapter=PostAdapter(response.body()!!)
+            setupRecyclerView()
+           // setupActionBar()
+            getAllSports()
+        }
+    }
+    private fun getAllSports(){
+        val sportsData = sports()
+        listAdapter.submitList(sportsData)
+        /*sportsData.forEach { sport ->
+            adapter.add(sport)
+        }*/
+    }
+    private fun sports( ):  MutableList<Sport>{
 
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<MutableList<PostModel>>, t: Throwable) {
-                    t.printStackTrace()
-                    Log.e("Error",t.message.toString())
-                }
-
-            })*/
+        val soccerSport = Sport("10100", "ACCESORIOS", "1399","Unico",
+            62F,25.52F,"http://190.110.214.14/comi/8066-3.jpg","TECNOLOGIA","")
+        return mutableListOf(soccerSport)
+    }
+    private fun setupRecyclerView() {
+        listAdapter = SportListAdapter(this)
+        adapter = SportAdapter(this)
+        binding.rvProducto.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@PedidoActivity)
+            adapter = listAdapter
+            //adapter = this@MainActivity.adapter
+        }
+    }
+    private fun setupActionBar(){
+        lifecycleScope.launch {
+            getWeather()
         }
     }
 
-
-
-    private fun callServiceGetProductos() {
-        val ProductService:UserService=RestEngine.getRestEngine().create(UserService::class.java)
-        val result:Call<List<UserDataCollectionItem>> =ProductService.ListProducto()
-
-        result.enqueue(object : Callback<List<UserDataCollectionItem>>{
-            override fun onResponse(
-                call: Call<List<UserDataCollectionItem>>,
-                response: Response<List<UserDataCollectionItem>>
-            ) {
-                showError("ok")
-                    binding.rvProducto.apply {
-                        layoutManager=LinearLayoutManager(this@PedidoActivity)
-                       // adapter=ProductoAdapter(response.body())
-                        Log.d("Daniel",response.body().toString())
-                    }
-
-            }
-
-            override fun onFailure(call: Call<List<UserDataCollectionItem>>, t: Throwable) {
-                showError("Error")
-            }
-        })
-    }
-
-    private fun initRecyclerView() {
-        adapter= ProductoAdapter(ProductoImages)
-        binding.rvProducto.layoutManager=LinearLayoutManager(this)
-        binding.rvProducto.adapter=adapter
-    }
-    private fun cargarTodo(query: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val call:Response<DogResponse> =getRetrofit().create(ApiServicioProducto::class.java).getProducto("$query")
-            val puppies:DogResponse? =call.body()
-            runOnUiThread {
-                if (call.isSuccessful){
-                //Show RecyclerView
-                    showError("Carga Perfecta")
-
-                    val images:List<ProductoResponse> =puppies?.images?: emptyList()
-                    ProductoImages.clear()
-                    ProductoImages.addAll(images)
-                    adapter.notifyDataSetChanged()
-                    //Log.d("Valor",images.toString())
-                    //ProductoImages.clear()
-                    //ProductoImages.addAll(images)
-                    //adapter.notifyDataSetChanged()
-
-
-                }else  {
-                    //
-                    showError("Nada")
-                }
-            }
-        }
-    }
-
-
-    private  fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
+    private suspend fun getWeather():WeatherEntity= withContext(Dispatchers.IO) {
+        //setupTitle(getString(R.string.main_retrofit_in_progress))
+        val retrofit:Retrofit=Retrofit.Builder()
             .baseUrl("http://190.12.55.2:9093/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+        val service:WeatherService=retrofit.create(WeatherService::class.java)
+
+           service.getProducto("3801")
+
     }
+
+
+
 
     private fun showError(ms:String){
         Toast.makeText(this,ms, Toast.LENGTH_LONG).show()
     }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        if (query.isNullOrEmpty()){
-            if (query != null) {
-                //CargaTodo(query)
-            }
-        }
-        return true
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        return  true
+    override fun onClick(sport: Sport) {
+        Snackbar.make(binding.root, sport.Ref, Snackbar.LENGTH_SHORT).show()
     }
 }
 
