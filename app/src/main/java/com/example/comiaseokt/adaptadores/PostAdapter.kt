@@ -11,6 +11,7 @@ import com.example.comiaseokt.R
 import com.example.comiaseokt.databinding.ItemProductoBinding
 import com.example.comiaseokt.response.ProductoResponse
 import com.squareup.picasso.Picasso
+import org.w3c.dom.Text
 
 class PostAdapter(val postModel:MutableList<PostModel>):RecyclerView.Adapter<PostViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -27,16 +28,26 @@ class PostAdapter(val postModel:MutableList<PostModel>):RecyclerView.Adapter<Pos
     }
 }
 class PostViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-    private val binding= ItemProductoBinding.bind(itemView)
-    val vref: TextView =binding.txtReferencia
-    val vnom: TextView =binding.txtNombre
-    val vpre: TextView =binding.txtPrecio
-    val vimg: ImageView =binding.ivProducto
+    private val vref:TextView=itemView.findViewById(R.id.txtReferencia)
+    private val vnom:TextView=itemView.findViewById(R.id.txtNombre)
+    private val vpre:TextView=itemView.findViewById(R.id.txtPrecio)
+    private val vimg:ImageView=itemView.findViewById(R.id.ivProducto)
+    //val vref: TextView =binding.txtReferencia
+    //val vnom: TextView =binding.txtNombre
+    //val vpre: TextView =binding.txtPrecio
+    //val vimg: ImageView =binding.ivProducto
 
     fun bindView(postModel: PostModel){
         vref.text=postModel.Ref
         vnom.text=postModel.Nombre
         vpre.text=postModel.Unit.toString()
-        Picasso.get().load(postModel.img).into(vimg)
+
+        Picasso.get()
+            .load(postModel.img)
+            .placeholder(R.drawable.noimg)
+            .error(R.drawable.noimg)
+            .into(vimg)
+
+
     }
 }

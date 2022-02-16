@@ -2,7 +2,7 @@ package com.example.comiaseokt.response
 
 import com.google.gson.annotations.SerializedName
 
-class UserDataCollection:ArrayList<UserDataCollectionItem> ()
+class UserDataCollection: ArrayList<UserDataCollectionItem>()
 data class UserDataCollectionItem(
     val Ref:String,
     val Nombre:String,

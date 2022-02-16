@@ -14,7 +14,7 @@
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/activity_punto.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/app_bar_main.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/card_cell.xml" value="0.35989583333333336" />
-        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/item_producto.xml" value="0.10364583333333334" />
+        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/item_producto.xml" value="0.25" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/nav_header_main.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/menu/activity_main_drawer.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/activity_main.xml" value="0.25092592592592594" />
@@ -26,7 +26,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

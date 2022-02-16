@@ -106,7 +106,7 @@ CoroutineScope(Dispatchers.IO).launch {
         searchByName(UserNameStr!!,PasswordStr!!)
     }
 fun goToMainActivity(){
-    startActivity(Intent(this, MainActivity::class.java))
+    startActivity(Intent(this, PedidoActivity::class.java))
 }
     fun goToPuntoActivity(){
         startActivity(Intent(this, PuntoActivity::class.java))

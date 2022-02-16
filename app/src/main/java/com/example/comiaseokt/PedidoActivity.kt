@@ -11,9 +11,9 @@ import com.example.comiaseokt.api.ApiService
 import com.example.comiaseokt.api.ApiServicioProducto
 import com.example.comiaseokt.api.UserService
 import com.example.comiaseokt.databinding.ActivityPedidoBinding
+import com.example.comiaseokt.response.DogResponse
 
 import com.example.comiaseokt.response.ProductoResponse
-import com.example.comiaseokt.response.UserDataCollection
 import com.example.comiaseokt.response.UserDataCollectionItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,35 +30,37 @@ class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val ProductoImages= mutableListOf<ProductoResponse>()
     private val ProdImages= mutableListOf<UserDataCollectionItem>()
 
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityPedidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.svProducto.setOnQueryTextListener(this)
-        //initRecyclerView()
+        initRecyclerView()
 
-        val recyclerView =binding.rvProducto
+      /*  val recyclerView =binding.rvProducto
         val serviceGenerator=ServiceGenerator.builService(ApiService::class.java)
         val call =serviceGenerator.getPost()
-
+*/
 
 
 //https://www.youtube.com/watch?v=4o6QwVe_2Yg&t=829s
 
 
         binding.btnAll.setOnClickListener {
-            //cargarTodo("3801")
+            cargarTodo("3801")
             //callServiceGetProductos()
-            call.enqueue(object :Callback<MutableList<PostModel>>{
-                override fun onResponse(
-                    call: Call<MutableList<PostModel>>,
-                    response: Response<MutableList<PostModel>>
-                ) {
+    /*       call.enqueue(object :Callback<MutableList<PostModel>>{
+                override fun onResponse(call: Call<MutableList<PostModel>>,response: Response<MutableList<PostModel>>) {
                     if(response.isSuccessful){
-                        Log.e("Succes", response.body().toString())
+                        Log.e("Resultado",response.body().toString())
                         recyclerView.apply {
                             layoutManager=LinearLayoutManager(this@PedidoActivity)
                             adapter=PostAdapter(response.body()!!)
+
                         }
                     }
                 }
@@ -68,9 +70,11 @@ class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                     Log.e("Error",t.message.toString())
                 }
 
-            })
+            })*/
         }
     }
+
+
 
     private fun callServiceGetProductos() {
         val ProductService:UserService=RestEngine.getRestEngine().create(UserService::class.java)
@@ -84,7 +88,8 @@ class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 showError("ok")
                     binding.rvProducto.apply {
                         layoutManager=LinearLayoutManager(this@PedidoActivity)
-                        //adapter=ProductoAdapter(response.body())
+                       // adapter=ProductoAdapter(response.body())
+                        Log.d("Daniel",response.body().toString())
                     }
 
             }
@@ -102,15 +107,22 @@ class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
     private fun cargarTodo(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val call= getRetrofit().create(ApiServicioProducto::class.java).getProducto("$query")
-            val puppies=call.body()
+            val call:Response<DogResponse> =getRetrofit().create(ApiServicioProducto::class.java).getProducto("$query")
+            val puppies:DogResponse? =call.body()
             runOnUiThread {
                 if (call.isSuccessful){
                 //Show RecyclerView
-                    val images=puppies
+                    showError("Carga Perfecta")
+
+                    val images:List<ProductoResponse> =puppies?.images?: emptyList()
                     ProductoImages.clear()
                     ProductoImages.addAll(images)
                     adapter.notifyDataSetChanged()
+                    //Log.d("Valor",images.toString())
+                    //ProductoImages.clear()
+                    //ProductoImages.addAll(images)
+                    //adapter.notifyDataSetChanged()
+
 
                 }else  {
                     //
@@ -144,14 +156,6 @@ class PedidoActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         return  true
     }
-}
-
-private fun <E> MutableList<E>.addAll(elements: List<UserDataCollectionItem>) {
-
-}
-
-private fun <E> List<E>.addAll(elements: UserDataCollection?) {
-
 }
 
 
