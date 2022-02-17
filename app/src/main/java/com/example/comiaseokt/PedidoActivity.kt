@@ -1,36 +1,32 @@
 package com.example.comiaseokt
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.comiaseokt.adapter.PostAdapter
+import com.example.comiaseokt.adapter.ProAdapter
+import com.example.comiaseokt.adapter.ProdListAdapter
 import com.example.comiaseokt.api.ApiService
 import com.example.comiaseokt.databinding.ActivityPedidoBinding
 import com.example.comiaseokt.retrofit.WeatherEntity
 import com.example.comiaseokt.retrofit.WeatherService
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class PedidoActivity : AppCompatActivity(), OnClickListener {
+class PedidoActivity : AppCompatActivity(), OnClickListeners {
 
     private  lateinit var binding: ActivityPedidoBinding
     private  lateinit var listAdapter:SportListAdapter
     private lateinit var adapter: SportAdapter
 
-
+    private  lateinit var listAdapters:ProdListAdapter
+    private lateinit var adapters: ProAdapter
 
 
 
@@ -42,75 +38,64 @@ class PedidoActivity : AppCompatActivity(), OnClickListener {
 
         //initRecyclerView()
 
-
+        setupRecyclerView()
 
         binding.btnAll.setOnClickListener {
             //setupRecyclerView()
            // setupActionBar()
             //getAllSports()
             //searchByName("3801")
-            cargaPostModel()
-        }
-    }
-
-    private fun cargaPostModel() {
-
-       // CoroutineScope(Dispatchers.IO).launch {
-        CoroutineScope(Dispatchers.IO).launch {
-            val serviceGenerator = ServiceGenerator.builService(ApiService::class.java)
-
-            val call = serviceGenerator.getProducto("3800")
-            runOnUiThread {
-                call.enqueue(object : Callback<MutableList<PostModel>> {
-                    override fun onResponse(
-                        call: Call<MutableList<PostModel>>,
-                        response: Response<MutableList<PostModel>>
-                    ) {
-
-                        Log.e("Success", response.body().toString())
-                        binding.rvProducto.apply {
-                            layoutManager = GridLayoutManager(this@PedidoActivity,2)
-                            adapter = PostAdapter(response.body()!!)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<MutableList<PostModel>>, t: Throwable) {
-                        t.printStackTrace()
-                        Log.e("error", t.message.toString())
-                    }
-                })
+            //cargaPostModel()
+            lifecycleScope.launch {
+            listAdapters.submitList(getAllProducto())
             }
 
         }
     }
+   /* private fun products(): MutableList<Sport>{
+        //return mutableListOf(all)
+    }*/
 
+    private suspend fun getAllProducto(): MutableList<PostModel> = withContext(Dispatchers.IO) {
+        /*val ProductoData=products()
+        listAdapter.submitList(ProductoData)*/
+
+        val retrofit:Retrofit=Retrofit.Builder()
+            .baseUrl("http://190.12.55.2:9093/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service:ApiService=retrofit.create(ApiService::class.java)
+        service.getProducto("3800")
+    }
+/*
 
     private fun getAllSports(){
         val sportsData = sports()
-        listAdapter.submitList(sportsData)
-        /*sportsData.forEach { sport ->
+        listAdapters.submitList(sportsData)
+        *//*sportsData.forEach { sport ->
             adapter.add(sport)
-        }*/
+        }*//*
     }
-    private fun sports( ):  MutableList<Sport>{
+    private fun sports( ):  MutableList<PostModel>{
 
-        val soccerSport = Sport("10100", "ACCESORIOS", "1399","Unico",
-            62F,25.52F,"http://190.110.214.14/comi/8066-3.jpg","TECNOLOGIA","")
+        val soccerSport = PostModel("1003", "1003", "1399","Unico",
+            24303F,0.06F,"http://190.110.214.14/comi/8066-3.jpg","VARIOS","N/A")
        return mutableListOf(soccerSport)
-    }
+    }*/
     private fun setupRecyclerView() {
-        listAdapter = SportListAdapter(this)
-        adapter = SportAdapter(this)
+        listAdapters = ProdListAdapter(this)
+        adapters = ProAdapter(this)
         binding.rvProducto.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@PedidoActivity)
-            adapter = listAdapter
+            layoutManager = GridLayoutManager(this@PedidoActivity,2)
+            adapter = listAdapters
             //adapter = this@MainActivity.adapter
         }
     }
     private fun setupActionBar(){
         lifecycleScope.launch {
-            getWeather()
+           // getWeather()
         }
     }
     private fun getRetrofit():Retrofit{
@@ -140,8 +125,8 @@ class PedidoActivity : AppCompatActivity(), OnClickListener {
     private fun showError(ms:String){
         Toast.makeText(this,ms, Toast.LENGTH_LONG).show()
     }
-    override fun onClick(sport: Sport) {
-        Snackbar.make(binding.root, sport.Ref, Snackbar.LENGTH_SHORT).show()
+    override fun onClick(sport: PostModel) {
+        Snackbar.make(binding.root, sport.ref, Snackbar.LENGTH_SHORT).show()
     }
 }
 

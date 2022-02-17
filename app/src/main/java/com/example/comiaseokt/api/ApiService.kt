@@ -7,5 +7,5 @@ import retrofit2.Call
 
 interface ApiService  {
     @GET("api/producto")
-   fun getProducto(@Query("bo")bo:String): Call<MutableList<PostModel>>
+ suspend  fun getProducto(@Query("bo")bo:String): MutableList<PostModel>
 }

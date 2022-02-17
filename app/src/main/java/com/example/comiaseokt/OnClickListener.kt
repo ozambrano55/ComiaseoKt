@@ -13,3 +13,7 @@ package com.example.comiaseokt
 interface OnClickListener {
     fun onClick(sport: Sport)
 }
+
+interface OnClickListeners {
+    fun onClick(sports: PostModel)
+}
