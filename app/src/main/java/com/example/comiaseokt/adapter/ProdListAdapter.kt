@@ -38,23 +38,24 @@ class ProdListAdapter (private val listener: OnClickListeners):
             binding.txtReferencia.text = sport.ref
             binding.txtNombre.text=sport.nombre
             binding.txtPrecio.text=("$"+ String.format( "%.2f", sport.unit ))
+            binding.txtCant.text=("Cant. "+ String.format( "%.2f", sport.cant ))
 
             val request = ImageRequest.Builder(context)
                 .data(sport.img)
                 .crossfade(true)
                 .transformations(
                     listOf(
-                        BlurTransformation(context, 25f)
+                        BlurTransformation(context, 25f,0.4F)
                     )
                 )
-                .size(1280, 720)
+                .size(720, 720)
                 .target(
                     onStart = {
                         binding.imgPhoto.setImageResource(R.drawable.ic_access_time)
                     },
                     onSuccess = {
                         binding.progressBar.visibility = android.view.View.GONE
-                        binding.imgPhoto.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+                        binding.imgPhoto.scaleType = android.widget.ImageView.ScaleType.CENTER_INSIDE
                         binding.imgPhoto.setImageDrawable(it)
                     },
                     onError = {

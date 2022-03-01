@@ -1,6 +1,7 @@
 package com.example.comiaseokt
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,22 +13,27 @@ import com.example.comiaseokt.databinding.ActivityPedidoBinding
 import com.example.comiaseokt.retrofit.WeatherEntity
 import com.example.comiaseokt.retrofit.WeatherService
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.Exception
 
 
 class PedidoActivity : AppCompatActivity(), OnClickListeners {
 
     private  lateinit var binding: ActivityPedidoBinding
-    private  lateinit var listAdapter:SportListAdapter
-    private lateinit var adapter: SportAdapter
 
-    private  lateinit var listAdapters:ProdListAdapter
-    private lateinit var adapters: ProAdapter
+    private  lateinit var listAdapter:ProdListAdapter
+    private lateinit var adapter: ProAdapter
+    private lateinit var fibScope: Job
 
+    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        Log.e("FibErro", "$throwable in $coroutineContext")
+    }
 
 
 
@@ -36,61 +42,48 @@ class PedidoActivity : AppCompatActivity(), OnClickListeners {
         binding= ActivityPedidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //initRecyclerView()
-
         setupRecyclerView()
+       //setupRecyclerView()
 
         binding.btnAll.setOnClickListener {
-            //setupRecyclerView()
-           // setupActionBar()
-            //getAllSports()
-            //searchByName("3801")
-            //cargaPostModel()
-            lifecycleScope.launch {
-            listAdapters.submitList(getAllProducto())
+             lifecycleScope.launch {
+                 setupRecyclerView()
+                 //listAdapters.submitList(getAllProducto())
+                 getSportsFlow().collect(){adapter.add(it)}
             }
 
         }
     }
-   /* private fun products(): MutableList<Sport>{
-        //return mutableListOf(all)
-    }*/
-
+    private fun getSportsFlow(): Flow<PostModel> = flow {
+        getAllProducto().forEach {
+            //delay(1_000)
+            emit(it)
+        }
+    }.flowOn(Dispatchers.Default)
+    override fun onDestroy() {
+        if(fibScope.isActive)fibScope.cancel()
+        super.onDestroy()
+    }
     private suspend fun getAllProducto(): MutableList<PostModel> = withContext(Dispatchers.IO) {
-        /*val ProductoData=products()
-        listAdapter.submitList(ProductoData)*/
+                //if (fibScope.isCancelled)throw Exception("Proceso cancelado")
+                val retrofit: Retrofit = Retrofit.Builder()
+                    .baseUrl("http://190.12.55.2:9093/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
 
-        val retrofit:Retrofit=Retrofit.Builder()
-            .baseUrl("http://190.12.55.2:9093/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service:ApiService=retrofit.create(ApiService::class.java)
-        service.getProducto("3800")
+                val service: ApiService = retrofit.create(ApiService::class.java)
+                 service.getProducto("3800")
     }
-/*
 
-    private fun getAllSports(){
-        val sportsData = sports()
-        listAdapters.submitList(sportsData)
-        *//*sportsData.forEach { sport ->
-            adapter.add(sport)
-        }*//*
-    }
-    private fun sports( ):  MutableList<PostModel>{
-
-        val soccerSport = PostModel("1003", "1003", "1399","Unico",
-            24303F,0.06F,"http://190.110.214.14/comi/8066-3.jpg","VARIOS","N/A")
-       return mutableListOf(soccerSport)
-    }*/
     private fun setupRecyclerView() {
-        listAdapters = ProdListAdapter(this)
-        adapters = ProAdapter(this)
+
+        listAdapter = ProdListAdapter(this)
+        adapter = ProAdapter(this)
         binding.rvProducto.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(this@PedidoActivity,2)
-            adapter = listAdapters
-            //adapter = this@MainActivity.adapter
+            //adapter = listAdapter
+            adapter = this@PedidoActivity.adapter
         }
     }
     private fun setupActionBar(){
@@ -98,30 +91,6 @@ class PedidoActivity : AppCompatActivity(), OnClickListeners {
            // getWeather()
         }
     }
-    private fun getRetrofit():Retrofit{
-        return Retrofit.Builder()
-            .baseUrl("http://190.12.55.2:9093/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-
-    private suspend fun getWeather():WeatherEntity= withContext(Dispatchers.IO) {
-        //setupTitle(getString(R.string.main_retrofit_in_progress))
-        val retrofit:Retrofit=Retrofit.Builder()
-            .baseUrl("http://190.12.55.2:9093/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service:WeatherService=retrofit.create(WeatherService::class.java)
-
-           service.getProducto("3801")
-
-    }
-
-
-
-
     private fun showError(ms:String){
         Toast.makeText(this,ms, Toast.LENGTH_LONG).show()
     }
