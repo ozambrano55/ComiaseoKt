@@ -1,13 +1,15 @@
-package com.example.comiaseokt
+package com.example.comiaseokt.activity
 
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.comiaseokt.MainActivity
+import com.example.comiaseokt.R
 import com.example.comiaseokt.UserApplication.Companion.prefs
 import com.example.comiaseokt.api.ApiServicioLogin
 import com.example.comiaseokt.databinding.ActivityLoginBinding
@@ -45,6 +47,26 @@ class LoginActivity   :  AppCompatActivity (){
         progressBar.setVisibility(View.GONE)
 
             initUI()
+        binding.btnSalir.setOnClickListener {
+            SweetAlertDialog(
+                this,
+                SweetAlertDialog.WARNING_TYPE
+            ).setTitleText("has oprimido el botón Salir")
+                .setContentText("¿Quieres cerrar la aplicación?")
+                .setCancelText("No, Cancelar!").setConfirmText("Sí, Cerrar")
+                .showCancelButton(true).setCancelClickListener { sDialog ->
+                    sDialog.dismissWithAnimation()
+                    SweetAlertDialog(
+                        this,
+                        SweetAlertDialog.ERROR_TYPE
+                    ).setTitleText("Operación cancelada")
+                        .setContentText("No saliste de la app")
+                        .show()
+                }.setConfirmClickListener { sweetAlertDialog ->
+                    sweetAlertDialog.dismissWithAnimation()
+                    System.exit(0)
+                }.show()
+        }
 
     }
 
@@ -83,8 +105,10 @@ CoroutineScope(Dispatchers.IO).launch {
 
                 if(puntoventa.isEmpty()){
                     goToPuntoActivity()
+                    finish()
                 }else {
                     goToMainActivity()
+                    finish()
                 }
             }else{
                 //muestra error
@@ -95,7 +119,27 @@ CoroutineScope(Dispatchers.IO).launch {
     }
 }
     private fun showError(){
-        Toast.makeText(this,"Revisar usuario o contraseña", Toast.LENGTH_LONG).show()
+       // Toast.makeText(this,"Revisar usuario o contraseña", Toast.LENGTH_LONG).show()
+
+        SweetAlertDialog(
+            this,
+            SweetAlertDialog.WARNING_TYPE
+        ).setTitleText("Error Usuario o Clave")
+            .setContentText("¿Quieres cerrar la aplicación?")
+            .setCancelText("No, Cancelar!").setConfirmText("Sí, Cerrar")
+            .showCancelButton(true).setCancelClickListener { sDialog ->
+                sDialog.dismissWithAnimation()
+                SweetAlertDialog(
+                    this,
+                    SweetAlertDialog.ERROR_TYPE
+                ).setTitleText("Operación cancelada")
+                    .setContentText("Ingrese correctamente sus credenciales")
+                    .show()
+            }.setConfirmClickListener { sweetAlertDialog ->
+                sweetAlertDialog.dismissWithAnimation()
+                System.exit(0)
+            }.show()
+
     }
     fun Login() {
 
@@ -107,9 +151,11 @@ CoroutineScope(Dispatchers.IO).launch {
     }
 fun goToMainActivity(){
     startActivity(Intent(this, MainActivity::class.java))
+    overridePendingTransition(R.anim.left_in, R.anim.left_out)
 }
     fun goToPuntoActivity(){
         startActivity(Intent(this, PuntoActivity::class.java))
+        overridePendingTransition(R.anim.left_in, R.anim.left_out)
     }
     fun salir() {
         finish()
