@@ -1,4 +1,4 @@
-package com.example.comiaseokt
+package com.example.comiaseokt.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

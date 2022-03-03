@@ -3,12 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/drawable-v24/ic_bolsa_compras.xml" value="0.3565" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37604166666666666" />
-        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/drawable-v24/ic_more.xml" value="0.3565" />
-        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/drawable-v24/ic_salir.xml" value="0.3565" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.37604166666666666" />
-        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/drawable/ic_local_offer.xml" value="0.2015" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.23125836680053546" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout-w936dp/activity_login.xml" value="0.23224043715846995" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/activity_login.xml" value="0.22" />
@@ -21,15 +17,21 @@
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/item_producto.xml" value="0.33" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/layout/nav_header_main.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/menu/activity_main_drawer.xml" value="0.20104166666666667" />
-        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/menu/inicio.xml" value="0.35520833333333335" />
-        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2015" />
-        <entry key="..\:/Users/TI/AndroidStudioProjects/ComiaseoKt/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2015" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/drawable/ic_volver_atras.xml" value="0.288" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/activity_detalle_mis_compras.xml" value="0.4053442028985507" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/activity_login.xml" value="0.35733695652173914" />
         <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/activity_main.xml" value="0.25092592592592594" />
         <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/activity_pedido.xml" value="0.5072463768115942" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/app_bar_inicio.xml" value="0.33" />
         <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/app_bar_main.xml" value="0.25092592592592594" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/content_inicio.xml" value="0.4053442028985507" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/fragment_configuracion.xml" value="0.4053442028985507" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/fragment_inicio.xml" value="0.4053442028985507" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/item_detalle_mis_compras.xml" value="0.4053442028985507" />
         <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/item_producto.xml" value="0.37037037037037035" />
         <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/layout/nav_header_main.xml" value="0.3851851851851852" />
         <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/menu/activity_main_drawer.xml" value="0.25092592592592594" />
+        <entry key="..\:/Users/ozamb/StudioProjects/ComiaseoKt/app/src/main/res/menu/inicio.xml" value="0.67" />
       </map>
     </option>
   </component>

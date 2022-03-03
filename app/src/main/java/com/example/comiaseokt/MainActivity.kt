@@ -2,16 +2,18 @@ package com.example.comiaseokt
 
 import android.content.Intent
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.comiaseokt.UserApplication.Companion.prefs
+import com.example.comiaseokt.activity.PedidoActivity
 import com.example.comiaseokt.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 
@@ -85,5 +87,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+    override fun onBackPressed() {
+        SweetAlertDialog(
+            this,
+            SweetAlertDialog.WARNING_TYPE
+        ).setTitleText("has oprimido el botón atrás")
+            .setContentText("¿Quieres cerrar la aplicación?")
+            .setCancelText("No, Cancelar!").setConfirmText("Sí, Cerrar")
+            .showCancelButton(true).setCancelClickListener { sDialog ->
+                sDialog.dismissWithAnimation()
+                SweetAlertDialog(
+                    this,
+                    SweetAlertDialog.ERROR_TYPE
+                ).setTitleText("Operación cancelada")
+                    .setContentText("No saliste de la app")
+                    .show()
+            }.setConfirmClickListener { sweetAlertDialog ->
+                sweetAlertDialog.dismissWithAnimation()
+                System.exit(0)
+                //finish()
+            }.show()
     }
 }
