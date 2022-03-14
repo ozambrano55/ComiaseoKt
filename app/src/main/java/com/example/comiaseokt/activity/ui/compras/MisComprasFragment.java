@@ -77,7 +77,7 @@ public class MisComprasFragment extends Fragment implements Communication, Anula
             if(response.getRpta() == 1){
                 loadData();
             }
-        });
-        return "El pedido ha sido cancelado";*/
+        });*/
+        return "El pedido ha sido cancelado";
     }
 }

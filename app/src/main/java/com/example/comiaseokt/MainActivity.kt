@@ -3,6 +3,7 @@ package com.example.comiaseokt
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -52,11 +53,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         funcionario.setText(prefs.getFuncionario())
     }
 
-  /*  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.activity_main_drawer,menu)
-
-        return super.onCreateOptionsMenu(menu)
-    }*/
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.inicio, menu)
+        return true
+    }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.nav_item_cConsulta -> {

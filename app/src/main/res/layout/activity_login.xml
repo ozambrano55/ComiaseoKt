@@ -19,12 +19,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Digite el Usuario del Siinf">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ET_Username"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -32,6 +34,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Digite contraseña del Siinf">
