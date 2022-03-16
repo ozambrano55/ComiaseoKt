@@ -1,8 +1,6 @@
 package com.example.comiaseokt
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.imageLoader
 import coil.request.ImageRequest
 import coil.transform.BlurTransformation
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.CustomTarget
 import com.example.comiaseokt.databinding.ItemProductoBinding
-import com.bumptech.glide.request.transition.Transition
 
 /****
  * Project: Sports
@@ -37,7 +31,7 @@ class SportListAdapter(private val listener:OnClickListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
 
-        val view = LayoutInflater.from(context).inflate(R.layout.item_producto, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_productos, parent, false)
 
         return ViewHolder(view)
     }

@@ -1,5 +1,6 @@
 package com.example.comiaseokt.activity.ui.compras;
 
+
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,23 +8,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-/*import com.alexandertutoriales.cliente.e_commerceapp.R;
-import com.alexandertutoriales.cliente.e_commerceapp.adapter.DetalleMisComprasAdapter;
-import com.alexandertutoriales.cliente.e_commerceapp.entity.service.DetallePedido;
-import com.alexandertutoriales.cliente.e_commerceapp.utils.DateSerializer;
-import com.alexandertutoriales.cliente.e_commerceapp.utils.TimeSerializer;*/
 import com.example.comiaseokt.R;
 import com.example.comiaseokt.adapter.DetalleMisComprasAdapter;
-import com.example.comiaseokt.entity.DetallePedido;
+import com.example.comiaseokt.entity.service.DetallePedido;
 import com.example.comiaseokt.utils.DateSerializer;
 import com.example.comiaseokt.utils.TimeSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DetalleMisComprasActivity extends AppCompatActivity {

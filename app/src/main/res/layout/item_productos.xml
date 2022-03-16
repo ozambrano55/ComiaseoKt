@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity.PedidoActivity">
+    tools:context=".activity.InicioActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -20,21 +20,49 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="false">
 
-        <ImageView
-            android:id="@+id/imgPhoto"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="95dp" />
+            android:layout_height="250dp"
+            android:layout_gravity="end"
+            android:padding="10dp">
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignLeft="@+id/imgPhoto"
+                android:layout_alignTop="@+id/imgPhoto"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/imgPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="95dp" />
+
+            <Button
+                android:id="@+id/btnOrdenar"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="#FF8500"
+                android:fontFamily="@font/san_francisco"
+                android:text="Ordenar"
+                android:textColor="#fff"
+                android:textSize="11dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignLeft="@+id/imgPhoto"
-            android:layout_alignTop="@+id/imgPhoto"
-            android:visibility="visible" />
 
 
         <TextView
@@ -85,6 +113,7 @@
             android:text="@string/_0_00"
             android:textColor="#2962FF"
             android:textStyle="bold" />
+
 
     </androidx.cardview.widget.CardView>
 

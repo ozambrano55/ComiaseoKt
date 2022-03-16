@@ -1,7 +1,7 @@
 package com.example.comiaseokt.api
 
 import com.example.comiaseokt.activity.GenericResponse
-import com.example.comiaseokt.entity.Pedido
+import com.example.comiaseokt.entity.service.Pedido
 import com.example.comiaseokt.entity.service.dto.GenerarPedidoDTO
 import com.example.comiaseokt.entity.service.dto.PedidoConDetallesDTO
 import retrofit2.Call

@@ -20,7 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class PedidoActivity : AppCompatActivity(), OnClickListeners {
+class InicioActivity :  AppCompatActivity(), OnClickListeners {
 
     private  lateinit var binding: ActivityPedidoBinding
 
@@ -81,9 +81,9 @@ class PedidoActivity : AppCompatActivity(), OnClickListeners {
         adapter = ProAdapter(this)
         binding.rvProducto.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(this@PedidoActivity,2)
+            layoutManager = GridLayoutManager(this@InicioActivity,2)
             //adapter = listAdapter
-            adapter = this@PedidoActivity.adapter
+            adapter = this@InicioActivity.adapter
         }
     }
     private fun setupActionBar(){

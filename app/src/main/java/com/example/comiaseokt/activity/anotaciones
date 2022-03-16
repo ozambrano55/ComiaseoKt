@@ -14,11 +14,11 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.comiaseokt.UserApplication.Companion.prefs
-import com.example.comiaseokt.activity.PedidoActivity
+import com.example.comiaseokt.activity.InicioActivity
 import com.example.comiaseokt.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class App : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer:DrawerLayout
     private lateinit var toggle:ActionBarDrawerToggle
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
     fun goToPedidoActivity(){
-        startActivity(Intent(this, PedidoActivity::class.java))
+        startActivity(Intent(this, InicioActivity::class.java))
     }
     override fun onPostCreate(savedInstanceState: Bundle?){
         super.onPostCreate(savedInstanceState)

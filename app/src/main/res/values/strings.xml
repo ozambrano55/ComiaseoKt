@@ -22,5 +22,8 @@
     <string name="menu_slideshow">Configuración</string>
     <string name="add_shop">Añadir al Carrito</string>
     <string name="comprar_p">Comprar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="listado_de_platillos">Listado de Platillos</string>
 
 </resources>

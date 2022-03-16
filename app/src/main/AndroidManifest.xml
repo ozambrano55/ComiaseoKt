@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.comiaseokt">
+    package="com.example.comiaseokt" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-feature android:name="android.hardware.Camera" />
     <uses-feature android:name="android.hardware.Camera.autofocus" />
 
@@ -16,17 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ComiaseoKt"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
         <activity
-            android:name=".activity.PedidoActivity"
+            android:name=".activity.ListarProductosPorCategoriaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DetalleProductoActivity"
             android:exported="false" />
         <activity
             android:name=".activity.PuntoActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="true"
-            >
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".App"
             android:exported="false" />
     </application>
 

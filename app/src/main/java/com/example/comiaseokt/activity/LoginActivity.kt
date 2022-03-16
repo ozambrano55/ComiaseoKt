@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.example.comiaseokt.MainActivity
 import com.example.comiaseokt.R
 import com.example.comiaseokt.UserApplication.Companion.prefs
 import com.example.comiaseokt.api.ApiServicioLogin
@@ -150,7 +149,7 @@ CoroutineScope(Dispatchers.IO).launch {
         searchByName(UserNameStr!!,PasswordStr!!)
     }
 fun goToMainActivity(){
-    startActivity(Intent(this, MainActivity::class.java))
+    startActivity(Intent(this, InicioActivity::class.java))
     overridePendingTransition(R.anim.left_in, R.anim.left_out)
 }
     fun goToPuntoActivity(){
